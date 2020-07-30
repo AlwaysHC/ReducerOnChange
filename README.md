@@ -1,4 +1,10 @@
-# ReducerOnChange / ROC
+# ReducerOnChange / RoC
+
+#Declaration
+```typescript
+    const [Test1, setTest1] = useReducerOnChange<CTest1>(new CTest1());
+    const [Test1Array, setTest1Array] = useReducerOnChange<CTest1[]>([]);
+```
 
 ## Set
 To set the entire hook value
@@ -45,4 +51,9 @@ Parent will contain the same data of the parent component (based on the interfac
 The function FieldName returns the correct path for the field's name
 ```html
 <input type="text" value={Parent.F} id={FieldName(props, "F")} onChange={(e) => setParent({ Type: "OnChangeFromForm", Event: e.currentTarget })} />
+```
+When you call a component that uses RoC you can specify which data the component will see:
+```html
+<TestComponentTest1 Reducer={Test1} ClassName="" setReducer={setTest1} />
+<TestComponentTest0 Reducer={Test1.Test0} ClassName="Test0" setReducer={setTest1} />
 ```
