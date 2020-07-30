@@ -244,6 +244,6 @@ export default function useReducerOnChange<Type>(data: Type) {
     return React.useReducer<React.Reducer<Type, ReducerAction<Type>>>(OnChangeReducer, data);
 }
 
-export function useROC<Type>(data: Type) {
+export function useRoC<Type>(data: Type) {
     return React.useReducer<React.Reducer<Type, ReducerAction<Type>>>(OnChangeReducer, data);
 }
