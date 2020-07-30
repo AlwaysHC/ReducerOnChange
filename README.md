@@ -1,4 +1,4 @@
-# ReducerOnChange
+# ReducerOnChange / ROC
 
 ## Set
 To set the entire hook value
