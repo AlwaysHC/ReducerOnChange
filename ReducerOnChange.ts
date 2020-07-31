@@ -12,7 +12,7 @@ import * as Glob from "../Globale";
 
 //OnChangeFromForm and OnChangeFromEvent are similar and have to be used with form's tags.
 //OnChangeFromEvent requires the copy of the event because of React works asynchronously and the "e" object may have already been destroyed when React will read it
-//onChange={(e) => setDatoUtente({ type: "OnChangeFromForm", Event: e.currentTarget })}
+//onChange={(e) => setDatoUtente({ type: "OnChangeFromForm", Target: e.currentTarget })}
 //onChange={(e) => setDatoUtente({ type: "OnChangeFromEvent", Event: Object.assign({}, e) })}
 
 //OnChangeFromHybrid exists for compatibility with BaseComponent and BasePureComponent. NameEvent can be a string or an event
@@ -35,11 +35,11 @@ interface IReducerActionOnChangeFrontEvent<Type> {
     Event: React.FormEvent<any>;
 }
 
-type TEvent = EventTarget & (HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);
+type TTarget = EventTarget & (HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);
 
 interface IReducerActionOnChangeFromForm<Type> {
     Type: "OnChangeFromForm";
-    Event: TEvent;
+    Target: TTarget;
 }
 
 interface IReducerActionOnChangeFromValue<Type> {
@@ -179,7 +179,7 @@ function SetValue(object: any, propertyList: string[], value: any, numberOfCycle
     return false;
 }
 
-function GetValueFromEvent(event: TEvent): any {
+function GetValueFromEvent(event: TTarget): any {
     let Value: any = null;
     if ((event as HTMLInputElement).type === "checkbox") {
         Value = (event as HTMLInputElement).checked;
@@ -209,8 +209,8 @@ function OnChangeReducer<Type>(data: Type, action: ReducerAction<Type>): Type {
             break;
         case "OnChangeFromForm":
             //onChange={(e) => setDatoUtente({ type: "OnChangeFromForm", Event: e.currentTarget })}
-            Glob.Log(Glob.LogCat.Reducer, false, "OnChangeFromForm", action.Event.name, action.Event.value, action.Event, data);
-            SetValue(R, action.Event.id.split("."), GetValueFromEvent(action.Event), 0);
+            Glob.Log(Glob.LogCat.Reducer, false, "OnChangeFromForm", action.Target.name, action.Target.value, action.Target, data);
+            SetValue(R, action.Target.id.split("."), GetValueFromEvent(action.Target), 0);
             break;
         case "OnChangeFromHybrid":
             //onChange={(e) => setDatoUtente({ type: "OnChangeFromHybrid", NameEvent: ..., Value: ... })}
